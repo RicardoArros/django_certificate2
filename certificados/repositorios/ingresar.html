@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block titulo %} Registro de certificados {% endblock %}
+
+{% block body %}
+
+<h1>Registro de certificados</h1>
+
+<form action="registro" method="post">
+
+  {% csrf_token %}
+
+  <table>
+    <tr>
+      <td>Id certificado</td>
+      <td><input type="text" name="id_certificado" placeholder="Ingrese id certificado" /></td>
+    </tr>
+
+    <tr>
+      <td>Nombre</td>
+      <td><input type="text" name="nombre" placeholder="Ingrese nombre de quien lo obtuvo" /></td>
+    </tr>
+
+    <tr>
+      <td>Fecha de obtención</td>
+      <td><input type="date" name="fecha" placeholder="Ingrese fecha de obtención" /></td>
+    </tr>
+
+    <tr>
+      <td>Curso</td>
+      <td><input type="text" name="curso" placeholder="Ingrese curso" /></td>
+    </tr>
+
+    <tr>
+      <td>Versión</td>
+      <td><input type="text" name="version" placeholder="Ingrese version de curso" /></td>
+    </tr>
+
+    <tr>
+      <td>Id validación</td>
+      <td><input type="text" name="id_verificacion" placeholder="Ingrese id validación" /></td>
+    </tr>
+  </table>
+
+  <div class="form-group py-5">
+    <button type="submit" class="btn btn-success btn-block">Ingresar</button>
+    
+    <button type="button" class="btn btn-danger btn-block" onclick="document.location.href='inicio'">Cancelar</button>
+  </div>
+</form>
+
+{% endblock %}

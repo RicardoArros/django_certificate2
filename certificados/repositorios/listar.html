@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block titulo %} Lista de certificados {% endblock %}
+
+{% block body %}
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        ID Certificado
+      </th>
+
+      <th>
+        Nombre
+      </th>
+
+      <th>
+        Fecha otorgamiento
+      </th>
+
+      <th>
+        Curso
+      </th>
+
+      <th>
+        Version
+      </th>
+
+      <th>
+        ID_Verificacion
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for cert in certificados %}
+
+    <tr>
+      <td>{{cert.id_certificado}}</td>
+      <td>{{cert.nombre}}</td>
+      <td>{{cert.fecha}}</td>
+      <td>{{cert.curso}}</td>
+      <td>{{cert.version}}</td>
+      <td>{{cert.id_verificacion}}</td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+
+
+  {% endblock %}

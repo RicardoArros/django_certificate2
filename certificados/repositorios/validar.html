@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block titulo %} Validador de certificado {% endblock %} {% block body %}
+
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h1>Validar Certificado</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="valida" method="post"> {% csrf_token %}
+                    <div class="form-group py-2">
+                        Ingrese ID Certificado
+                        <input type="text" id="txtValidador" name="txtCertificado" class="form-control" placeholder="Ingrese id certificado por ej: 000SMAf23Mj6"
+                        maxlength="30" required>
+                    </div>
+                    <div class="form-group py-2">
+                        Ingrese ID Validador
+                        <input type="text" id="txtValidador" name="txtValidador" class="form-control" placeholder="Ingrese validador por ej: Af23Mj6"
+                        maxlength="15" required>
+                    </div>
+                    <div class="form-group py-5">
+                        <button type="submit" class="btn btn-success btn-block">Buscar</button>
+                        <button type="button" class="btn btn-danger btn-block" onclick="document.location.href='inicio'">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
