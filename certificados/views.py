@@ -134,15 +134,31 @@ def validar(request):
 
 #
 def valida(request):
+  #
+  message = None
+  
   input_certificado = Certificado.objects.get(id_certificado = request.GET["txtCertificado"])
   input_verificacion = Certificado.objects.get(id_verificacion = request.GET["txtValidador"])
   
-  if input_certificado and input_verificacion:
-    print('Existen')
-    message = "Certificado válido"
-  else:
+  try:  
+    if input_certificado and input_verificacion:
+      print('Existen')
+      message = "Certificado válido"
+      
+  except ValidationError as err:
+    message = f'"Información no coincide, {err}'
     print('No Existen')
-    message = "Información no coincide"
+    
+  except Exception as ex:
+    if str(ex.__cause__).find('prueba2_certificado.id_certificado') < 0:
+      message = 'Información no coincide 1'   
+      
+    else:
+      message = 'Información no coincide 2'
+    
+  except:
+    print('No Existen')
+    message = "Información no coincide"   
   
   return render(request,"validar.html", {'message': message})
 
