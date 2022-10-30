@@ -1,6 +1,7 @@
 from inspect import ArgSpec
 from django.shortcuts import render
 from sqlite3 import IntegrityError
+from django.core.exceptions import ValidationError
 #from msilib.schema import Error
 
 from .models import Certificado
@@ -8,6 +9,10 @@ from .models import Certificado
 #
 def inicio(request):
   return render(request,"index.html")
+
+#
+def respuesta(request):
+  return render(request,"respuesta.html")
 
 
 #
@@ -43,7 +48,7 @@ def registro(request):
     else:
       message = 'ha ocurrido un problema en la operación'
   
-  except Error as err:
+  except ValidationError as err:
     message = f'ha ocurrido un problema en la operación_, {err}'
 
   #
@@ -53,7 +58,6 @@ def registro(request):
 #
 def actualizar(request):
   return render(request,"actualizar.html", {"form2": "hidden"})
-
 
 #
 def editar(request):
@@ -68,7 +72,7 @@ def editar(request):
     
     visibilidad = "visible"
     
-    return render(request, "actualizar.html", {"form2": visibilidad, "c": cert})  
+    return render(request, "actualizar.html", {"form2": visibilidad, "cert": cert})  
   except:
     cert = None
   
@@ -88,19 +92,19 @@ def editar(request):
       fecha = request.POST['fecha']
       curso = request.POST['curso']
       version = request.POST['version']
-      idVerificacion = request.POST['id_verificacion']       
+      id_verificacion = request.POST['id_verificacion']       
 
       cert.nombre = nombre
       cert.fecha = fecha
       cert.curso = curso
       cert.version = version
-      cert.id_verificacion = idVerificacion
+      cert.id_verificacion = id_verificacion
 
       try:
         cert.save()
         message = "Se ha actualizado el certificado"
       except:
-        message = "Se ha ocurrido un error al actualizar el certificado"
+        message = "Ha ocurrido un error al actualizar el certificado"
 
       visibilidad = "hidden"
       
@@ -130,8 +134,17 @@ def validar(request):
 
 #
 def valida(request):
-  #realizar valida
-  pass
+  input_certificado = Certificado.objects.get(id_certificado = request.GET["txtCertificado"])
+  input_verificacion = Certificado.objects.get(id_verificacion = request.GET["txtValidador"])
+  
+  if input_certificado and input_verificacion:
+    print('Existen')
+    message = "Certificado válido"
+  else:
+    print('No Existen')
+    message = "Información no coincide"
+  
+  return render(request,"validar.html", {'message': message})
 
 
 #
@@ -141,6 +154,20 @@ def eliminar(request):
 
 #
 def elimina(request):
-  #realizar eliminar
-  pass
+  message = None
+  
+  try:
+    cert = Certificado.objects.get(id_certificado = request.GET["txtValidador"])
+    cert.delete()
+    message = "Certificado eliminado"
+    
+    return render(request, "eliminar.html",{"message": message})
+  
+  except Exception as ex:
+    if str(ex.args).find('does not exist') > 0:
+      message = 'ID no existe'
+    else:
+      message = 'Ha ocurrido un problema'
+    
+    return render(request,"eliminar.html", {"message": message})    
 

@@ -24,6 +24,8 @@
   </div>
 </form>
 
+<h3>{{message}}</h3>
+
 <!-- FORM 2 -->
 <div style="visibility:{{form2}}">
   <form action="editar" method="post">
@@ -32,32 +34,32 @@
     <table>
       <tr>
         <td>Id certificado</td>
-        <td><input type="text" name="id_certificado" readonly="yes" value="{{c.id_certificado}}" /></td>
+        <td><input type="text" name="id_certificado" readonly="yes" value="{{cert.id_certificado}}" /></td>
       </tr>
 
       <tr>
         <td>Nombre</td>
-        <td><input type="text" name="nombre" value="{{c.nombre}}" /></td>
+        <td><input type="text" name="nombre" value="{{cert.nombre}}" /></td>
       </tr>
 
       <tr>
         <td>Fecha de obtención</td>
-        <td><input type="date" name="fecha" value="{{c.fecha}}" /></td>
+        <td><input type="date" name="fecha" value="{{cert.fecha}}" /></td>
       </tr>
 
       <tr>
         <td>Curso</td>
-        <td><input type="text" name="curso" value="{{c.curso}}" /></td>
+        <td><input type="text" name="curso" value="{{cert.curso}}" /></td>
       </tr>
 
       <tr>
         <td>Versión</td>
-        <td><input type="text" name="version" value="{{c.version}}" /></td>
+        <td><input type="text" name="version" value="{{cert.version}}" /></td>
       </tr>
 
       <tr>
         <td>Id verificación</td>
-        <td><input type="text" name="id_verificacion" value="{{c.id_verificacion}}" /></td>
+        <td><input type="text" name="id_verificacion" value="{{cert.id_verificacion}}" /></td>
       </tr>
     </table>
 

@@ -29,4 +29,5 @@ urlpatterns = [
     path('valida', views.valida),
     path('elimina', views.elimina),
     path('registro', views.registro),   
+    path('respuesta', views.respuesta),   
 ]
