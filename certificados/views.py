@@ -10,11 +10,9 @@ def inicio(request):
   return render(request,"index.html")
 
 
-
 #
 def ingresar(request):
   return render(request,"ingresar.html")
-
 
 
 #
@@ -52,19 +50,72 @@ def registro(request):
   return render(request,"registro.html", {'message': message})
 
 
-
 #
 def actualizar(request):
-  return render(request,"actualizar.html")
-
+  return render(request,"actualizar.html", {"form2": "hidden"})
 
 
 #
 def editar(request):
   #
-  pass
+  cert = None  
+  message = ""  
+  visibilidad = ""
   
+  #
+  try:
+    cert = Certificado.objects.get(id_certificado = request.GET["txtValidador"])
+    
+    visibilidad = "visible"
+    
+    return render(request, "actualizar.html", {"form2": visibilidad, "c": cert})  
+  except:
+    cert = None
+  
+  #
+  if cert == None:
+    id_certificado = None
+    
+    try:
+      id_certificado = request.POST["id_certificado"]
+    except:
+      id_certificado = None
 
+    if id_certificado != None:
+      cert = Certificado.objects.get(id_certificado = id_certificado)        
+    
+      nombre = request.POST['nombre']
+      fecha = request.POST['fecha']
+      curso = request.POST['curso']
+      version = request.POST['version']
+      idVerificacion = request.POST['id_verificacion']       
+
+      cert.nombre = nombre
+      cert.fecha = fecha
+      cert.curso = curso
+      cert.version = version
+      cert.id_verificacion = idVerificacion
+
+      try:
+        cert.save()
+        message = "Se ha actualizado el certificado"
+      except:
+        message = "Se ha ocurrido un error al actualizar el certificado"
+
+      visibilidad = "hidden"
+      
+      return render(request, "actualizar.html", {"message": message, "form2": visibilidad})
+    
+    else:
+      message = "No se ha encontrado el certificado"
+      visibilidad = "hidden"
+      
+      return render(request, "actualizar.html", {"message": message, "form2": visibilidad})
+  else:
+      message = "No se encontró el certificado solicitado"
+      visibilidad = "hidden"
+      return render(request, "actualizar.html", {"message": message, "form2": visibilidad})
+  
 
 #
 def listar(request):
@@ -72,11 +123,9 @@ def listar(request):
   return render(request, "listar.html", {'certificados': certificados})
 
 
-
 #
 def validar(request):
   return render(request,"validar.html")
-
 
 
 #
@@ -85,11 +134,9 @@ def valida(request):
   pass
 
 
-
 #
 def eliminar(request):
   return render(request,"eliminar.html")
-
 
 
 #

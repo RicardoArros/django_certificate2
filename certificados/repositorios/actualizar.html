@@ -1,12 +1,14 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
-{% block titulo %} Actualización de certificados {% endblock %} 
+{% block titulo %} Actualización de certificados {% endblock %}
 
 {% block body %}
 
+<!-- TITLE -->
 <h1>Actualización de certificados</h1>
 
-<form action="valida" method="get"> 
+<!-- FORM 1 -->
+<form action="editar" method="get">
   {% csrf_token %}
 
   <div class="form-group py-2">
@@ -22,46 +24,49 @@
   </div>
 </form>
 
-<form action="actualiza" method="post"> 
-  {% csrf_token %}
+<!-- FORM 2 -->
+<div style="visibility:{{form2}}">
+  <form action="editar" method="post">
+    {% csrf_token %}
 
-  <table>
-    <tr>
-      <td>Id certificado</td>
-      <td><input type="text" name="id_certificado" readonly="yes" value="{{cert.id_certificado}}" /></td>
-    </tr>
-    
-    <tr>
-      <td>Nombre</td>
-      <td><input type="text" name="nombre" value="{{cert.nombre}}" /></td>
-    </tr>
+    <table>
+      <tr>
+        <td>Id certificado</td>
+        <td><input type="text" name="id_certificado" readonly="yes" value="{{c.id_certificado}}" /></td>
+      </tr>
 
-    <tr>
-      <td>Fecha de obtención</td>
-      <td><input type="date" name="fecha" value="{{cert.fecha}}" /></td>
-    </tr>
+      <tr>
+        <td>Nombre</td>
+        <td><input type="text" name="nombre" value="{{c.nombre}}" /></td>
+      </tr>
 
-    <tr>
-      <td>Curso</td>
-      <td><input type="text" name="curso" value="{{cert.curso}}" /></td>
-    </tr>
+      <tr>
+        <td>Fecha de obtención</td>
+        <td><input type="date" name="fecha" value="{{c.fecha}}" /></td>
+      </tr>
 
-    <tr>
-      <td>Versión</td>
-      <td><input type="text" name="version" value="{{cert.version}}" /></td>
-    </tr>
+      <tr>
+        <td>Curso</td>
+        <td><input type="text" name="curso" value="{{c.curso}}" /></td>
+      </tr>
 
-    <tr>
-      <td>Id verificación</td>
-      <td><input type="text" name="id_verificacion" value="{{cert.id_verificacion}}" /></td>
-    </tr>
-  </table>
+      <tr>
+        <td>Versión</td>
+        <td><input type="text" name="version" value="{{c.version}}" /></td>
+      </tr>
 
-  <div class="form-group py-5">
-    <button type="submit" class="btn btn-success btn-block">Buscar</button>
+      <tr>
+        <td>Id verificación</td>
+        <td><input type="text" name="id_verificacion" value="{{c.id_verificacion}}" /></td>
+      </tr>
+    </table>
 
-    <button type="button" class="btn btn-danger btn-block" onclick="document.location.href='inicio'">Cancelar</button>
-  </div>
-</form>
+    <div class="form-group py-5">
+      <button type="submit" class="btn btn-success btn-block">Actualizar</button>
+
+      <button type="button" class="btn btn-danger btn-block" onclick="document.location.href='inicio'">Cancelar</button>
+    </div>
+  </form>
+</div>
 
 {% endblock %}
